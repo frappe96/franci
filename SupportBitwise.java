@@ -1,7 +1,7 @@
 package com.jsoniter;
 
 /**
- * classe di supporto per risolvere il problema di affidabilit√† "Avoid using
+ * classe di supporto per risolvere il problema di affidabilit‡ "Avoid using
  * bitwise operators to make comparisons"
  * 
  * @author Francesco
@@ -27,7 +27,7 @@ public class SupportBitwise {
 	private final static int DUE = 2;
 
 	/**
-	 * Metodo di supporto per ridurre la complessit√† ciclomatica nel metodo che
+	 * Metodo di supporto per ridurre la complessit‡ ciclomatica nel metodo che
 	 * restituisce una variabile boolean
 	 * 
 	 * @param bin1
@@ -37,12 +37,7 @@ public class SupportBitwise {
 	 * @return
 	 */
 	private static boolean cyclomaticComplexity1(String bin1, String bin2, int index1, int index2) {
-		if ((bin1.charAt(index1) != bin2.charAt(index2)) || (Character.getNumericValue(bin1.charAt(index1)) == 0)
-				&& (Character.getNumericValue(bin2.charAt(index2)) == 0)) {
-			return true;
-		} else {
-			return false;
-		}
+		return ((bin1.charAt(index1) != bin2.charAt(index2)) || (Character.getNumericValue(bin1.charAt(index1)) == 0) && (Character.getNumericValue(bin2.charAt(index2)) == 0));
 	}
 
 	/**
@@ -59,14 +54,16 @@ public class SupportBitwise {
 		if (l1 <= l2) {
 			for (int i = l1 - 1; i >= 0; i--) {
 				l2--;
-				if (!(flag = cyclomaticComplexity1(bin1, bin2, i, l2))) {
+				flag = cyclomaticComplexity1(bin1, bin2, i, l2);
+				if (!(flag)) {
 					break;
 				}
 			}
 		} else {
 			for (int i = l2 - 1; i >= 0; i--) {
 				l1--;
-				if (!(flag = cyclomaticComplexity1(bin1, bin2, l1, i))) {
+				flag = cyclomaticComplexity1(bin1, bin2, l1, i);
+				if (!(flag)) {
 					break;
 				}
 			}
@@ -83,13 +80,7 @@ public class SupportBitwise {
 	 * @return
 	 */
 	private static boolean cyclomaticComplexity2(String bin1, String bin2, int index1, int index2) {
-		if ((Character.getNumericValue(bin1.charAt(index1)) == 0 && Character.getNumericValue(bin2.charAt(index2)) == 1)
-				|| (Character.getNumericValue(bin1.charAt(index1)) == 1
-						&& Character.getNumericValue(bin2.charAt(index2)) == 0)) {
-			return true;
-		} else {
-			return false;
-		}
+		return ((Character.getNumericValue(bin1.charAt(index1)) == 0 && Character.getNumericValue(bin2.charAt(index2)) == 1) || (Character.getNumericValue(bin1.charAt(index1)) == 1 && Character.getNumericValue(bin2.charAt(index2)) == 0));
 	}
 
 	/**
@@ -131,13 +122,11 @@ public class SupportBitwise {
 					newLong = UNO + newLong;
 				}
 
-				if ((Character.getNumericValue(bin1.charAt(i)) == 0
-						&& Character.getNumericValue(bin2.charAt(l2)) == 0)) {
+				if ((Character.getNumericValue(bin1.charAt(i)) == 0 && Character.getNumericValue(bin2.charAt(l2)) == 0)) {
 					newLong = ZERO + newLong;
 				}
 
-				if ((Character.getNumericValue(bin1.charAt(i)) == 1
-						&& Character.getNumericValue(bin2.charAt(l2)) == 1)) {
+				if ((Character.getNumericValue(bin1.charAt(i)) == 1 && Character.getNumericValue(bin2.charAt(l2)) == 1)) {
 					newLong = UNO + newLong;
 				}
 			}
@@ -151,13 +140,11 @@ public class SupportBitwise {
 					newLong = UNO + newLong;
 				}
 
-				if ((Character.getNumericValue(bin1.charAt(l1)) == 0
-						&& Character.getNumericValue(bin2.charAt(i)) == 0)) {
+				if ((Character.getNumericValue(bin1.charAt(l1)) == 0 && Character.getNumericValue(bin2.charAt(i)) == 0)) {
 					newLong = ZERO + newLong;
 				}
 
-				if ((Character.getNumericValue(bin1.charAt(l1)) == 1
-						&& Character.getNumericValue(bin2.charAt(i)) == 1)) {
+				if ((Character.getNumericValue(bin1.charAt(l1)) == 1 && Character.getNumericValue(bin2.charAt(i)) == 1)) {
 					newLong = UNO + newLong;
 				}
 			}
