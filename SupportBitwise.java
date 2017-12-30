@@ -16,11 +16,13 @@ public class SupportBitwise {
 	/**
 	 * 
 	 */
-	private final static char zero = '0';
+	private final static char ZERO = '0';
 	/**
 	 * 
 	 */
-	private final static char uno = '1';
+	private final static char UNO = '1';
+
+	private final static int DUE = 2;
 
 	/**
 	 * Metodo per bitwise utilizzato negli if
@@ -82,14 +84,14 @@ public class SupportBitwise {
 							&& Character.getNumericValue(bin2.charAt(l2)) == 1)
 							|| (Character.getNumericValue(bin1.charAt(i)) == 1
 									&& Character.getNumericValue(bin2.charAt(l2)) == 0)) {
-						newLong = zero + newLong;
+						newLong = ZERO + newLong;
 					}
 				} else if (c == '|') {
 					if ((Character.getNumericValue(bin1.charAt(i)) == 0
 							&& Character.getNumericValue(bin2.charAt(l2)) == 1)
 							|| (Character.getNumericValue(bin1.charAt(i)) == 1
 									&& Character.getNumericValue(bin2.charAt(l2)) == 0)) {
-						newLong = uno + newLong;
+						newLong = UNO + newLong;
 					}
 				} else {
 					System.out.println(c + " operand not recognized");
@@ -97,12 +99,12 @@ public class SupportBitwise {
 
 				if ((Character.getNumericValue(bin1.charAt(i)) == 0
 						&& Character.getNumericValue(bin2.charAt(l2)) == 0)) {
-					newLong = zero + newLong;
+					newLong = ZERO + newLong;
 				}
 
 				if ((Character.getNumericValue(bin1.charAt(i)) == 1
 						&& Character.getNumericValue(bin2.charAt(l2)) == 1)) {
-					newLong = uno + newLong;
+					newLong = UNO + newLong;
 				}
 			}
 		} else {
@@ -113,14 +115,14 @@ public class SupportBitwise {
 							&& Character.getNumericValue(bin2.charAt(i)) == 1)
 							|| (Character.getNumericValue(bin1.charAt(l1)) == 1
 									&& Character.getNumericValue(bin2.charAt(i)) == 0)) {
-						newLong = zero + newLong;
+						newLong = ZERO + newLong;
 					}
 				} else if (c == '|') {
 					if ((Character.getNumericValue(bin1.charAt(l1)) == 0
 							&& Character.getNumericValue(bin2.charAt(i)) == 1)
 							|| (Character.getNumericValue(bin1.charAt(l1)) == 1
 									&& Character.getNumericValue(bin2.charAt(i)) == 0)) {
-						newLong = uno + newLong;
+						newLong = UNO + newLong;
 					}
 				} else {
 					System.out.println(c + " operand not recognized");
@@ -128,18 +130,19 @@ public class SupportBitwise {
 
 				if ((Character.getNumericValue(bin1.charAt(l1)) == 0
 						&& Character.getNumericValue(bin2.charAt(i)) == 0)) {
-					newLong = zero + newLong;
+					newLong = ZERO + newLong;
 				}
 
 				if ((Character.getNumericValue(bin1.charAt(l1)) == 1
 						&& Character.getNumericValue(bin2.charAt(i)) == 1)) {
-					newLong = uno + newLong;
+					newLong = UNO + newLong;
 				}
 			}
 		}
 		for (int i = newLong.length() - 1; i >= 0; i--) {
-			if (newLong.charAt(i) == uno) {
-				l = new Double(Math.pow(2, newLong.length() - 1 - i)).longValue() + l;
+			if (newLong.charAt(i) == UNO) {
+				Double d = Math.pow(DUE, (newLong.length() - 1) - i);
+				l = Long.valueOf(d.longValue()) + l;
 			}
 		}
 		return l;
