@@ -1,3 +1,4 @@
+package com.jsoniter;
 
 /**
  * classe di supporto per risolvere il problema di affidabilità "Avoid using
@@ -113,20 +114,20 @@ public class SupportBitwise {
 		while (j >= 0) {
 			if (l1 > l2) {
 				toReturn = "bin2";
-				bin2 = '0' + bin2;
+				bin2= new String('0' + bin2);
 				l2++;
 			} else if (l1 < l2) {
 				toReturn = "bin1";
-				bin1 = '0' + bin1;
+				bin1= new String('0' + bin1);
 				l1++;
 			} else {
 				break;
 			}
 			j--;
 		}
-		if (toReturn.equals("bin1")) {
+		if ("bin1".equals(toReturn)) {
 			toReturn = bin1;
-		} else if (toReturn.equals("bin2")) {
+		} else if ("bin2".equals(toReturn)) {
 			toReturn = bin2;
 		}
 		return toReturn;
