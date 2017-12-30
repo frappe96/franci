@@ -1,4 +1,3 @@
-package com.jsoniter;
 
 /**
  * classe di supporto per risolvere il problema di affidabilità "Avoid using
@@ -37,7 +36,8 @@ public class SupportBitwise {
 	 * @return
 	 */
 	private static boolean cyclomaticComplexity1(String bin1, String bin2, int index1, int index2) {
-		return ((bin1.charAt(index1) != bin2.charAt(index2)) || (Character.getNumericValue(bin1.charAt(index1)) == 0) && (Character.getNumericValue(bin2.charAt(index2)) == 0));
+		return ((bin1.charAt(index1) != bin2.charAt(index2)) || (Character.getNumericValue(bin1.charAt(index1)) == 0)
+				&& (Character.getNumericValue(bin2.charAt(index2)) == 0));
 	}
 
 	/**
@@ -80,7 +80,56 @@ public class SupportBitwise {
 	 * @return
 	 */
 	private static boolean cyclomaticComplexity2(String bin1, String bin2, int index1, int index2) {
-		return ((Character.getNumericValue(bin1.charAt(index1)) == 0 && Character.getNumericValue(bin2.charAt(index2)) == 1) || (Character.getNumericValue(bin1.charAt(index1)) == 1 && Character.getNumericValue(bin2.charAt(index2)) == 0));
+		return ((Character.getNumericValue(bin1.charAt(index1)) == 0
+				&& Character.getNumericValue(bin2.charAt(index2)) == 1)
+				|| (Character.getNumericValue(bin1.charAt(index1)) == 1
+						&& Character.getNumericValue(bin2.charAt(index2)) == 0));
+	}
+
+	/**
+	 * 
+	 * @param bin1
+	 * @param bin2
+	 * @param index1
+	 * @param index2
+	 * @param value
+	 * @return
+	 */
+	private static boolean cyclomaticComplexity3(String bin1, String bin2, int index1, int index2, int value) {
+		return Character.getNumericValue(bin1.charAt(index1)) == value
+				&& Character.getNumericValue(bin2.charAt(index2)) == value;
+	}
+
+	/**
+	 * 
+	 * @param bin1
+	 * @param bin2
+	 */
+	private static String equalsLength(String bin1, String bin2) {
+		int l1 = bin1.length();
+		int l2 = bin2.length();
+		String toReturn = "";
+		int j = Math.max(l1, l2) - Math.min(l1, l2);
+		while (j >= 0) {
+			if (l1 > l2) {
+				toReturn = "bin2";
+				bin2 = '0' + bin2;
+				l2++;
+			} else if (l1 < l2) {
+				toReturn = "bin1";
+				bin1 = '0' + bin1;
+				l1++;
+			} else {
+				break;
+			}
+			j--;
+		}
+		if (toReturn.equals("bin1")) {
+			toReturn = bin1;
+		} else if (toReturn.equals("bin2")) {
+			toReturn = bin2;
+		}
+		return toReturn;
 	}
 
 	/**
@@ -92,61 +141,32 @@ public class SupportBitwise {
 	 * @return
 	 */
 	public static long bitwise(Long long1, Long long2, char c) {
-		boolean flag = false;
 		String newLong = "";
 		long l = 0;
 		String bin1 = Long.toBinaryString(long1);
 		String bin2 = Long.toBinaryString(long2);
 		int l1 = bin1.length();
 		int l2 = bin2.length();
-		int j = Math.max(l1, l2) - Math.min(l1, l2);
-		while (j >= 0) {
-			if (l1 > l2) {
-				bin2 = '0' + bin2;
-				l2++;
-			} else if (l1 < l2) {
-				bin1 = '0' + bin1;
-				l1++;
-			} else {
-				break;
-			}
-			j--;
-		}
 		if (l1 <= l2) {
-			for (int i = l1 - 1; i >= 0; i--) {
-				l2--;
-				flag = cyclomaticComplexity2(bin1, bin2, i, l2);
-				if ((c == '&') && (flag)) {
-					newLong = ZERO + newLong;
-				} else if ((c == '|') && (flag)) {
-					newLong = UNO + newLong;
-				}
-
-				if ((Character.getNumericValue(bin1.charAt(i)) == 0 && Character.getNumericValue(bin2.charAt(l2)) == 0)) {
-					newLong = ZERO + newLong;
-				}
-
-				if ((Character.getNumericValue(bin1.charAt(i)) == 1 && Character.getNumericValue(bin2.charAt(l2)) == 1)) {
-					newLong = UNO + newLong;
-				}
-			}
+			bin1 = equalsLength(bin1, bin2);
+			l1 = bin1.length();
 		} else {
-			for (int i = l2 - 1; i >= 0; i--) {
-				l1--;
-				flag = cyclomaticComplexity2(bin1, bin2, l1, i);
-				if ((c == '&') && (flag)) {
-					newLong = ZERO + newLong;
-				} else if ((c == '|') && (flag)) {
-					newLong = UNO + newLong;
-				}
+			bin2 = equalsLength(bin1, bin2);
+			l2 = bin2.length();
+		}
+		for (int i = l1 - 1; i >= 0; i--) {
+			l2--;
+			if ((c == '&') && (cyclomaticComplexity2(bin1, bin2, i, l2))) {
+				newLong = ZERO + newLong;
+			} else if ((c == '|') && (cyclomaticComplexity2(bin1, bin2, i, l2))) {
+				newLong = UNO + newLong;
+			}
 
-				if ((Character.getNumericValue(bin1.charAt(l1)) == 0 && Character.getNumericValue(bin2.charAt(i)) == 0)) {
-					newLong = ZERO + newLong;
-				}
-
-				if ((Character.getNumericValue(bin1.charAt(l1)) == 1 && Character.getNumericValue(bin2.charAt(i)) == 1)) {
-					newLong = UNO + newLong;
-				}
+			if (cyclomaticComplexity3(bin1, bin2, i, l2, 0)) {
+				newLong = ZERO + newLong;
+			}
+			if (cyclomaticComplexity3(bin1, bin2, i, l2, 1)) {
+				newLong = UNO + newLong;
 			}
 		}
 		for (int i = newLong.length() - 1; i >= 0; i--) {
