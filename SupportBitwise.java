@@ -21,7 +21,9 @@ public class SupportBitwise {
 	 * 
 	 */
 	private final static char UNO = '1';
-
+	/**
+	 * 
+	 */
 	private final static int DUE = 2;
 
 	/**
@@ -79,22 +81,16 @@ public class SupportBitwise {
 		if (l1 <= l2) {
 			for (int i = l1 - 1; i >= 0; i--) {
 				l2--;
-				if (c == '&') {
-					if ((Character.getNumericValue(bin1.charAt(i)) == 0
-							&& Character.getNumericValue(bin2.charAt(l2)) == 1)
-							|| (Character.getNumericValue(bin1.charAt(i)) == 1
-									&& Character.getNumericValue(bin2.charAt(l2)) == 0)) {
-						newLong = ZERO + newLong;
-					}
-				} else if (c == '|') {
-					if ((Character.getNumericValue(bin1.charAt(i)) == 0
-							&& Character.getNumericValue(bin2.charAt(l2)) == 1)
-							|| (Character.getNumericValue(bin1.charAt(i)) == 1
-									&& Character.getNumericValue(bin2.charAt(l2)) == 0)) {
-						newLong = UNO + newLong;
-					}
-				} else {
-					System.out.println(c + " operand not recognized");
+				if ((c == '&') && ((Character.getNumericValue(bin1.charAt(i)) == 0
+						&& Character.getNumericValue(bin2.charAt(l2)) == 1)
+						|| (Character.getNumericValue(bin1.charAt(i)) == 1
+								&& Character.getNumericValue(bin2.charAt(l2)) == 0))) {
+					newLong = ZERO + newLong;
+				} else if ((c == '|') && ((Character.getNumericValue(bin1.charAt(i)) == 0
+						&& Character.getNumericValue(bin2.charAt(l2)) == 1)
+						|| (Character.getNumericValue(bin1.charAt(i)) == 1
+								&& Character.getNumericValue(bin2.charAt(l2)) == 0))) {
+					newLong = UNO + newLong;
 				}
 
 				if ((Character.getNumericValue(bin1.charAt(i)) == 0
@@ -110,22 +106,16 @@ public class SupportBitwise {
 		} else {
 			for (int i = l2 - 1; i >= 0; i--) {
 				l1--;
-				if (c == '&') {
-					if ((Character.getNumericValue(bin1.charAt(l1)) == 0
-							&& Character.getNumericValue(bin2.charAt(i)) == 1)
-							|| (Character.getNumericValue(bin1.charAt(l1)) == 1
-									&& Character.getNumericValue(bin2.charAt(i)) == 0)) {
-						newLong = ZERO + newLong;
-					}
-				} else if (c == '|') {
-					if ((Character.getNumericValue(bin1.charAt(l1)) == 0
-							&& Character.getNumericValue(bin2.charAt(i)) == 1)
-							|| (Character.getNumericValue(bin1.charAt(l1)) == 1
-									&& Character.getNumericValue(bin2.charAt(i)) == 0)) {
-						newLong = UNO + newLong;
-					}
-				} else {
-					System.out.println(c + " operand not recognized");
+				if ((c == '&') && ((Character.getNumericValue(bin1.charAt(l1)) == 0
+						&& Character.getNumericValue(bin2.charAt(i)) == 1)
+						|| (Character.getNumericValue(bin1.charAt(l1)) == 1
+								&& Character.getNumericValue(bin2.charAt(i)) == 0))) {
+					newLong = ZERO + newLong;
+				} else if ((c == '|') && ((Character.getNumericValue(bin1.charAt(l1)) == 0
+						&& Character.getNumericValue(bin2.charAt(i)) == 1)
+						|| (Character.getNumericValue(bin1.charAt(l1)) == 1
+								&& Character.getNumericValue(bin2.charAt(i)) == 0))) {
+					newLong = UNO + newLong;
 				}
 
 				if ((Character.getNumericValue(bin1.charAt(l1)) == 0
