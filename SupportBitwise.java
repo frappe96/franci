@@ -105,20 +105,21 @@ public class SupportBitwise {
 	 * 
 	 * @param bin1
 	 * @param bin2
+	 * @param l1
+	 * @param l2
+	 * @return
 	 */
-	private static String equalsLength(String bin1, String bin2) {
-		int l1 = bin1.length();
-		int l2 = bin2.length();
+	private static String equalsLength(String bin1, String bin2, int l1, int l2) {
 		String toReturn = "";
 		int j = Math.max(l1, l2) - Math.min(l1, l2);
 		while (j >= 0) {
 			if (l1 > l2) {
 				toReturn = "bin2";
-				bin2= new String('0' + bin2);
+				bin2 = Character.toString('0') + bin2.subSequence(0, l2);
 				l2++;
 			} else if (l1 < l2) {
 				toReturn = "bin1";
-				bin1= new String('0' + bin1);
+				bin1 = Character.toString('0') + bin1.subSequence(0, l1);
 				l1++;
 			} else {
 				break;
@@ -149,10 +150,10 @@ public class SupportBitwise {
 		int l1 = bin1.length();
 		int l2 = bin2.length();
 		if (l1 <= l2) {
-			bin1 = equalsLength(bin1, bin2);
+			bin1 = equalsLength(bin1, bin2, l1, l2);
 			l1 = bin1.length();
 		} else {
-			bin2 = equalsLength(bin1, bin2);
+			bin2 = equalsLength(bin1, bin2, l1, l2);
 			l2 = bin2.length();
 		}
 		for (int i = l1 - 1; i >= 0; i--) {
