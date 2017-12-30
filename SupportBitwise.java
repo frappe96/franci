@@ -115,11 +115,11 @@ public class SupportBitwise {
 		while (j >= 0) {
 			if (l1 > l2) {
 				toReturn = "bin2";
-				bin2 = Character.toString('0') + bin2.subSequence(0, l2);
+				bin2 = '0' + bin2;
 				l2++;
 			} else if (l1 < l2) {
 				toReturn = "bin1";
-				bin1 = Character.toString('0') + bin1.subSequence(0, l1);
+				bin1 = '0' + bin1;
 				l1++;
 			} else {
 				break;
@@ -132,6 +132,22 @@ public class SupportBitwise {
 			toReturn = bin2;
 		}
 		return toReturn;
+	}
+
+	private static String riempiBinaryString(String bin1, String bin2, char c, String newLong, int index1, int index2) {
+		if ((c == '&') && (cyclomaticComplexity2(bin1, bin2, index1, index2))) {
+			newLong = ZERO + newLong;
+		} else if ((c == '|') && (cyclomaticComplexity2(bin1, bin2, index1, index2))) {
+			newLong = UNO + newLong;
+		}
+
+		if (cyclomaticComplexity3(bin1, bin2, index1, index2, 0)) {
+			newLong = ZERO + newLong;
+		}
+		if (cyclomaticComplexity3(bin1, bin2, index1, index2, 1)) {
+			newLong = UNO + newLong;
+		}
+		return newLong;
 	}
 
 	/**
@@ -158,18 +174,7 @@ public class SupportBitwise {
 		}
 		for (int i = l1 - 1; i >= 0; i--) {
 			l2--;
-			if ((c == '&') && (cyclomaticComplexity2(bin1, bin2, i, l2))) {
-				newLong = ZERO + newLong;
-			} else if ((c == '|') && (cyclomaticComplexity2(bin1, bin2, i, l2))) {
-				newLong = UNO + newLong;
-			}
-
-			if (cyclomaticComplexity3(bin1, bin2, i, l2, 0)) {
-				newLong = ZERO + newLong;
-			}
-			if (cyclomaticComplexity3(bin1, bin2, i, l2, 1)) {
-				newLong = UNO + newLong;
-			}
+			newLong = riempiBinaryString(bin1, bin2, c, newLong, i, l2);
 		}
 		for (int i = newLong.length() - 1; i >= 0; i--) {
 			if (newLong.charAt(i) == UNO) {
